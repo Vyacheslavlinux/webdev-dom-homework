@@ -9,40 +9,7 @@
   <body>
     <div class="container">
       <ul id="container" class="comments">
-        <!-- <li id="comment" class="comment">
-          <div class="comment-header">
-            <div id="nameOld">Глеб Фокин</div>
-            <div id="dateOld">12.02.22 12:18</div>
-          </div>
-          <div class="comment-body">
-            <div id="commentTextOld" class="comment-text">
-              Это будет первый комментарий на этой странице
-            </div>
-          </div>
-          <div class="comment-footer">
-            <div class="likes">
-              <span id="likesCounterOld" class="likes-counter">3</span>
-              <button id="likesButton" class="like-button"></button>
-            </div>
-          </div>
-        </li> -->
-        <!-- <li class="comment">
-          <div class="comment-header">
-            <div>Варвара Н.</div>
-            <div>13.02.22 19:22</div>
-          </div>
-          <div class="comment-body">
-            <div class="comment-text">
-              Мне нравится как оформлена эта страница! ❤
-            </div>
-          </div>
-          <div class="comment-footer">
-            <div class="likes">
-              <span class="likes-counter">75</span>
-              <button class="like-button -active-like"></button>
-            </div>
-          </div>
-        </li> -->
+        
       </ul>
       <div class="add-form">
         <input
@@ -69,8 +36,8 @@
     const container = document.getElementById("container");
     let classLike = "";
     const array = [
-      {name: "Глеб Фокин", date: "12.02.22 12:18", comment: "Это будет первый комментарий на этой странице", like: "false", likenumber: 3},
-      {name: "Варвара Н", date: "13.02.22 19:22", comment: "Мне нравится как оформлена эта страница! ❤", like: "true", likenumber: 75},
+      {name: "Глеб Фокин", date: "12.02.22 12:18", comment: "Это будет первый комментарий на этой странице", like: false, likenumber: 3},
+      {name: "Варвара Н", date: "13.02.22 19:22", comment: "Мне нравится как оформлена эта страница! ❤", like: true, likenumber: 75},
     ]
 
     const initClickLike = () => {
@@ -78,16 +45,16 @@
       for ( const arrayCounter of arrayCounters) {
       arrayCounter.addEventListener("click", () => {
         const index = arrayCounter.dataset.index;
-        if (array[index].like == "true") {
+        if (array[index].like == true) {
           
-          array[index].like = "false"; 
+          array[index].like = false; 
           
           array[index].likenumber--;
         
         }
-        else if (array[index].like == "false") {
+        else if (array[index].like == false) {
           
-          array[index].like = "true"; 
+          array[index].like = true; 
           
           array[index].likenumber++;
         
@@ -103,8 +70,8 @@
     const renderArray = () => {
 
       const arrayHTML = array.map((arr, index) => {
-        if (array[index].like == "true"){classLike = "-active-like"}
-        else if (array[index].like == "false") {classLike = ""         
+        if (array[index].like == true){classLike = "-active-like"}
+        else if (array[index].like == false) {classLike = ""         
         };
         return`<li class="comment">
           <div class="comment-header">
@@ -152,7 +119,7 @@
 
       
 
-      array.push({name: inputName.value, date: currentDate.toLocaleString('ru-RU', {year:"2-digit", month:"numeric", day:"numeric", hour:"numeric", minute:"numeric"}).replace(',',''), comment: inputText.value, like: "false", likenumber: 0});
+      array.push({name: inputName.value, date: currentDate.toLocaleString('ru-RU', {year:"2-digit", month:"numeric", day:"numeric", hour:"numeric", minute:"numeric"}).replace(',',''), comment: inputText.value, like: false, likenumber: 0});
       renderArray();
       
       
