@@ -143,14 +143,26 @@
 
       
 
-      if (inputName.value==='' || inputText.value==='') {
+      if (inputName.value.trim()==='' || inputText.value.trim()==='') {
         alert("поля ввода не могут быть пустыми");
         return;        
       }
 
       
 
-      array.push({name: ChangeHTML(inputName.value), date: currentDate.toLocaleString('ru-RU', {year:"2-digit", month:"numeric", day:"numeric", hour:"numeric", minute:"numeric"}).replace(',',''), comment: ChangeHTML(inputText.value), like: false, likenumber: 0});
+      array.push({
+        name: ChangeHTML(inputName.value), 
+        date: currentDate.toLocaleString('ru-RU', {
+          year:"2-digit",
+          month:"numeric",
+          day:"numeric",
+          hour:"numeric", 
+          minute:"numeric"
+        }).replace(',',''),
+        comment: ChangeHTML(inputText.value),
+        like: false,
+        likenumber: 0
+      });
       renderArray();
       inputName.value = "";
       inputText.value = "";
