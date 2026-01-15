@@ -7,11 +7,11 @@
   </head>
 
   <body>
-    <div class="container">
+    <div  class="container">
       <ul id="container" class="comments">
-        
+      
       </ul>
-      <div class="add-form">
+      <div id="add-form" class="add-form">
         <input
           type="text"
           id="add-form-name"
@@ -24,6 +24,7 @@
           class="add-form-text"
           placeholder="Введите ваш коментарий"
           rows="4"
+          
         ></textarea>
         <div class="add-form-row">
           <button id="add-form-button" class="add-form-button">Написать</button>
@@ -33,6 +34,9 @@
   </body>
 
   <script>
+    const inputName = document.getElementById('add-form-name');
+    const inputText = document.getElementById('add-form-text');
+
     const container = document.getElementById("container");
     let classLike = "";
     const array = [
@@ -45,6 +49,7 @@
       for ( const arrayCounter of arrayCounters) {
       arrayCounter.addEventListener("click", () => {
         const index = arrayCounter.dataset.index;
+        
         if (array[index].like == true) {
           
           array[index].like = false; 
@@ -60,12 +65,33 @@
         
         };
         
-        
+        event.stopPropagation();
         renderArray();
       })
       }
       
     }
+      
+      
+
+      const initClickComment = () => {
+      const commentElements = document.querySelectorAll(".comment");
+      for ( const commentElement of commentElements) {
+        commentElement.addEventListener("click", () => {
+          const index = commentElement.dataset.commentnumber;
+
+          inputText.value =`${array[index].name} ${array[index].comment}`;
+        });
+
+      }
+    }
+
+      const ChangeHTML = (symbol) => {
+        return symbol.replaceAll("<", "&lt;").replaceAll(">", "&gt");
+      };
+      
+
+
 
     const renderArray = () => {
 
@@ -73,7 +99,8 @@
         if (array[index].like == true){classLike = "-active-like"}
         else if (array[index].like == false) {classLike = ""         
         };
-        return`<li class="comment">
+        
+        return`<li class="comment" data-commentnumber="${index}">
           <div class="comment-header">
             <div>${arr.name}</div>
             <div>${arr.date}</div>
@@ -89,45 +116,62 @@
               <button data-index="${index}" class="like-button ${classLike}"></button>
             </div>
           </div>
-        </li>`;
+        </li>
+        `;
+        
       }).join("");
-
+      
+      
       container.innerHTML = arrayHTML;
+       
 
       initClickLike();
-
+      initClickComment();
+      
     }
 
     renderArray();
-
+    
     
     
     const buttonElement = document.getElementById("add-form-button");
     buttonElement.addEventListener("click", () => {
       
         
-      const inputName = document.getElementById('add-form-name');
-      const inputText = document.getElementById('add-form-text');
+      
       const currentDate = new Date();
 
       
 
-      if (inputName.value==='' || inputText.value==='') {
+      if (inputName.value.trim()==='' || inputText.value.trim()==='') {
         alert("поля ввода не могут быть пустыми");
         return;        
       }
 
       
 
-      array.push({name: inputName.value, date: currentDate.toLocaleString('ru-RU', {year:"2-digit", month:"numeric", day:"numeric", hour:"numeric", minute:"numeric"}).replace(',',''), comment: inputText.value, like: false, likenumber: 0});
+      array.push({
+        name: ChangeHTML(inputName.value), 
+        date: currentDate.toLocaleString('ru-RU', {
+          year:"2-digit",
+          month:"numeric",
+          day:"numeric",
+          hour:"numeric", 
+          minute:"numeric"
+        }).replace(',',''),
+        comment: ChangeHTML(inputText.value),
+        like: false,
+        likenumber: 0
+      });
       renderArray();
-      
+      inputName.value = "";
+      inputText.value = "";
       
       
       
 
     });
-
+    
     
 
   </script>
