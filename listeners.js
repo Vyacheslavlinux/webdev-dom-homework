@@ -48,9 +48,11 @@
     }
 
      
-
+    export  const addComment = () => {
       const buttonElement = document.getElementById("add-form-button");
-    buttonElement.addEventListener("click", () => {
+      const inputName = document.getElementById('add-form-name');
+      const inputText = document.getElementById('add-form-text');
+      buttonElement.addEventListener("click", () => {
       
         
       
@@ -88,5 +90,5 @@
       
 
     });
-    
+    }
     

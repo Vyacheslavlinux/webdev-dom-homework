@@ -1,6 +1,6 @@
  import { array } from "./array.js";
- import { initClickLike } from "./function.js";
- import { initClickComment } from "./function.js";
+ import { initClickLike } from "./listeners.js";
+ import { initClickComment } from "./listeners.js";
  export const renderArray = () => {
  
         let classLike = "";
