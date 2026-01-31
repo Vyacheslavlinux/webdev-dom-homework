@@ -1,8 +1,8 @@
-    import { array } from "./array.js";
+    import { array, updateComments } from "./array.js";
     import { renderArray } from "./render.js";
     import { ChangeHTML } from "./changeHTML.js";
-    const inputName = document.getElementById('add-form-name');
-    const inputText = document.getElementById('add-form-text');
+import { postComment } from "./api.js";
+
   
   export const initClickLike = () => {
       const arrayCounters = document.querySelectorAll(".like-button");
@@ -67,26 +67,33 @@
 
       
 
-      array.push({
+      // array.push({
         
 
-        name: ChangeHTML(inputName.value), 
-        date: currentDate.toLocaleString('ru-RU', {
-          year:"2-digit",
-          month:"numeric",
-          day:"numeric",
-          hour:"numeric", 
-          minute:"numeric"
-        }).replace(',',''),
-        comment: ChangeHTML(inputText.value),
-        like: false,
-        likenumber: 0
-      });
-      renderArray();
-      inputName.value = "";
-      inputText.value = "";
+      //   name: ChangeHTML(inputName.value), 
+      //   date: currentDate.toLocaleString('ru-RU', {
+      //     year:"2-digit",
+      //     month:"numeric",
+      //     day:"numeric",
+      //     hour:"numeric", 
+      //     minute:"numeric"
+      //   }).replace(',',''),
+      //   comment: ChangeHTML(inputText.value),
+      //   like: false,
+      //   likenumber: 0
+      // });
+      // renderArray();
+      // inputName.value = "";
+      // inputText.value = "";
       
-      
+      postComment(ChangeHTML(inputText.value), ChangeHTML(inputName.value)).then(
+        (data) => {
+          updateComments(data);
+          renderArray();
+          inputName.value = "";
+          inputText.value = "";
+        },
+      )
       
 
     });
