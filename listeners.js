@@ -7,17 +7,25 @@ import { postComment } from "./api.js";
   export const initClickLike = () => {
       const arrayCounters = document.querySelectorAll(".like-button");
       for ( const arrayCounter of arrayCounters) {
+        
       arrayCounter.addEventListener("click", () => {
         const index = arrayCounter.dataset.index;
-        
+
+      
         if (array[index].like == true) {
+          
+          
           
           array[index].like = false; 
           
           array[index].likenumber--;
+
+          
         
         }
         else if (array[index].like == false) {
+
+          
           
           array[index].like = true; 
           
@@ -65,29 +73,15 @@ import { postComment } from "./api.js";
         return;        
       }
 
+      document.querySelector('.form-loading').style.display = 'block';
+      document.querySelector('.add-form').style.display = 'none';
+
       
-
-      // array.push({
-        
-
-      //   name: ChangeHTML(inputName.value), 
-      //   date: currentDate.toLocaleString('ru-RU', {
-      //     year:"2-digit",
-      //     month:"numeric",
-      //     day:"numeric",
-      //     hour:"numeric", 
-      //     minute:"numeric"
-      //   }).replace(',',''),
-      //   comment: ChangeHTML(inputText.value),
-      //   like: false,
-      //   likenumber: 0
-      // });
-      // renderArray();
-      // inputName.value = "";
-      // inputText.value = "";
       
       postComment(ChangeHTML(inputText.value), ChangeHTML(inputName.value)).then(
         (data) => {
+          document.querySelector('.form-loading').style.display = 'none';
+          document.querySelector('.add-form').style.display = 'flex';
           updateComments(data);
           renderArray();
           inputName.value = "";
