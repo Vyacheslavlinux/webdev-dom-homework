@@ -88,6 +88,20 @@ import { postComment } from "./api.js";
           inputText.value = "";
         },
       )
+      .catch((error) => {
+        
+        document.querySelector('.form-loading').style.display = 'none';
+        document.querySelector('.add-form').style.display = 'flex';
+        if (error.message === 'Failed to fetch') {
+          alert("Кажется, у вас сломался интернет, попробуйте позже");
+        }
+        if (error.message === 'неверный запрос') {
+          alert("Имя и комментарий должны быть не короче 3 символов");
+        }
+        if (error.message === 'сервер недоступен') {
+          alert("Сервер сломался, попробуй позже");
+        }
+      })
       
 
     });
