@@ -4,12 +4,18 @@ import { addComment } from "./listeners.js";
 import { fetchComments } from "./api.js";
 import { updateComments } from "./array.js";
 
-document.querySelector(".comments").innerHTML = '<ul> Продолжается загрузка комментариев...</ul>'
 
+
+ export const fetchAndRenderComments = (isFirstLoading) => {
+
+    if (isFirstLoading) {
+       document.querySelector(".container").innerHTML = `<p>Продолжается загрузка комментариев...</p>` 
+    }
 fetchComments().then(data =>{
     updateComments(data);
     renderArray();
+    
 });
-
-
-addComment();
+}
+// addComment();
+fetchAndRenderComments (true);
