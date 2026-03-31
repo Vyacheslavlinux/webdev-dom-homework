@@ -43,7 +43,7 @@ export const postComment = (text, name) => {
         
         if (response.status === 500)
         {throw new Error ("сервер недоступен")}
-        if (response.status === 400)
+        if (response.status === 400)       
         {throw new Error ('неверный запрос')}
         if (response.status === 201) {
         return response.json()
@@ -55,11 +55,14 @@ export const postComment = (text, name) => {
 }
 
 export const login = (login, password) => {
-    return fetch(authHost + '/login', {
+   return fetch(authHost + '/login', {
         method: 'POST',
         body: JSON.stringify({ login: login, password: password }),
     })
-};
+    
+         
+
+};  
 
 export const registration = (name, login, password) => {
     return fetch(authHost, {

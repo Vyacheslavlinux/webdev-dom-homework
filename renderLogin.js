@@ -43,8 +43,22 @@ export const renderLogin = () => {
     const submitButtonEl = document.querySelector('.button-main')
 
     submitButtonEl.addEventListener("click", () => {
-        login(loginEl.value, passwordEl.value).then((response) =>{
-            return response.json()
+        login(loginEl.value, passwordEl.value)
+                    .then((response) =>{
+                        
+                        if (response.status === 500) {
+                        alert("Сервер сломался, попробуй позже");
+                         return   
+                        }
+                        if (response.status === 400) {
+                        alert("Ты сделал ошибку в паре Логин/пароль. попробуй снова")
+                        return 
+                        }
+              
+                        if (response.status === 201) {
+                        return response.json()
+                        }
+            
         }).then((data) => {
             setToken(data.user.token)
             setName(data.user.name)

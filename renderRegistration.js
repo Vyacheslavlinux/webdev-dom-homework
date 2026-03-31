@@ -51,8 +51,24 @@ export const renderRegistration = () => {
     const submitButtonEl = document.querySelector('.button-main')
 
     submitButtonEl.addEventListener("click", () => {
-        registration(nameEl.value, loginEl.value, passwordEl.value).then((response) =>{
-            return response.json()
+        registration(nameEl.value, loginEl.value, passwordEl.value)
+
+        .then((response) =>{
+                        
+                        if (response.status === 500) {
+                        alert("Сервер сломался, попробуй позже");
+                         return   
+                        }
+                        if (response.status === 400) {
+                        alert("Ты сделал ошибку  Имя/Логин/пароль. попробуй снова")
+                        return 
+                        }
+              
+                        if (response.status === 201) {
+                        return response.json()
+                        }
+        // .then((response) =>{
+        //     return response.json()
         }).then((data) => {
             setToken(data.user.token)
             setName(data.user.name)
